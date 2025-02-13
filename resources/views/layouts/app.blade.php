@@ -17,7 +17,7 @@
             @yield('content')
         </div>
     </main>
-    <footer class="">
+    <footer class="bg-white">
         @yield('footer')
     </footer>
 </body>
