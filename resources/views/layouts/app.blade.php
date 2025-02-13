@@ -17,7 +17,7 @@
             @yield('content')
         </div>
     </main>
-    <footer class=" p-4">
+    <footer class="">
         @yield('footer')
     </footer>
 </body>
