@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'renos';
+    src: url(../../public/fonts/renos-rough-font/renos-rough.ttf) format('truetype');
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
