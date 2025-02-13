@@ -3,22 +3,22 @@
 @section('title', 'start page')
 
 @section('header')
-<div class="flex w-full justify-center p-4 pt-16">
+<div class="flex justify-center  p-4 pt-16">
     <img src="{{asset('img/happy_logo.png')}}" alt="logo" class="w-1/6">
 </div>
 @endsection
 
 @section('content')
-<div class="flex h-full pt-44  gap-24 flex-col">
+<div class="flex h-full pt-44 gap-24 flex-col">
     <h1 class="flex justify-center text-center font-bold text-8xl">Where will you be eating today?</h1>
-    <div class="flex justify-center gap-16">
-        <a href="{{ route('category') }}" onclick="" class="text-center shadow-lg bg-custom_gray p-10">
+    <div class="flex justify-center gap-9 p-2">
+        <a href="{{ route('category') }}" onclick="" class="text-center rounded-xl shadow-lg bg-custom_orange p-10">
             <img src="{{ asset('img/very_happy.webp') }}" alt="">
-            <p class="text-6xl font-bold">Eat in</p>
+            <p class="text-5xl font-bold font-renos text-text_color">Eat in</p>
         </a>
-        <a href="{{ route('category') }}" onclick="" class="text-center shadow-lg bg-custom_gray p-10">
+        <a href="{{ route('category') }}" onclick="" class="text-center rounded-xl shadow-lg bg-custom_orange p-10">
             <img src="{{ asset('img/happy.webp') }}" alt="">
-            <p class="text-6xl font-bold">Take away</p>
+            <p class="text-5xl font-bold font-renos text-text_color">Take away</p>
         </a>
     </div>
 </div>
