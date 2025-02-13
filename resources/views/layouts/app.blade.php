@@ -9,7 +9,7 @@
     @vite('resources/js/app.js')
 </head>
 <body class="bg-gray-100 text-gray-900 min-h-s h-screen flex flex-col">
-    <header class="  p-4">
+    <header class="">
     @yield('header')
     </header>
     <main class="flex-grow flex">
@@ -17,7 +17,7 @@
             @yield('content')
         </div>
     </main>
-    <footer class=" p-4">
+    <footer class="">
         @yield('footer')
     </footer>
 </body>
