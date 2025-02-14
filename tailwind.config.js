@@ -18,6 +18,12 @@ export default {
 
             colors:{
                 custom_gray:"#eeefed",
+                custom_orange:"#ffb181",
+                custom_oranges:"#ff7520",
+                custom_green: "#deff78",
+                custom_blue: "#053631",
+                custom_greens: "#8cd003",
+                text_color: "#022c3e",
             },
 
             boxShadow: {
