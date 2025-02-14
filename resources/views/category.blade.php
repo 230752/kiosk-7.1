@@ -2,12 +2,6 @@
 
 @section('title', 'category page')
 
-@section('header')
-    <div id="header-content" class="shadow-lg">
-        <img src="{{asset('img/happy_logo.png')}}" alt="logo" class="w-40">
-    </div>
-@endsection
-
 @section('content')
     <div id="content-container" class="pt-12">
         <div id="option-btn-container">
