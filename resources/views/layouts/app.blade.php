@@ -10,7 +10,7 @@
     @vite('resources/js/app.js')
 </head>
 
-<body class="bg-gray-100 text-gray-900 min-h-s h-screen flex flex-col">
+<body class="bg-gray-100 text-gray-900 min-h-s h-screen w-full flex flex-col">
     <header class="">
         @section('header')
         <div id="header-content" class="shadow-lg">
@@ -18,8 +18,8 @@
         </div>
         @show
     </header>
-    <main class="flex-grow flex">
-        <div class="container mx-auto">
+    <main class="flex-grow w-full flex">
+        <div class="flex w-full">
             @yield('content')
         </div>
     </main>
