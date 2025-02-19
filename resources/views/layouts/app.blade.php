@@ -2,18 +2,18 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Kiosk')</title>
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
-</head>
-
-<body class="bg-gray-100 text-gray-900 min-h-s h-screen w-full flex flex-col">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@yield('title', 'Kiosk')</title>
+        @vite('resources/css/app.css')
+        @vite('resources/js/app.js')
+    </head>
+    
+    <body class="bg-gray-100 text-gray-900 min-h-s h-screen w-full flex flex-col">
     <header class="">
         @section('header')
-        <div id="header-content" class="shadow-lg">
+        <div id="header-content" class="bg-custom_blue z-50 shadow-xl">
             <img src="{{asset('img/happy_logo.png')}}" alt="logo" class="w-32">
         </div>
         @show
@@ -23,7 +23,7 @@
             @yield('content')
         </div>
     </main>
-    <footer class="bg-white">
+    <footer class="bg-custom_blue">
         @yield('footer')
     </footer>
 </body>
