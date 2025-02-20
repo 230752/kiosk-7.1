@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 Route::get('/', function () {
-    return view('start');
+    return view ('Add');
 });
+
+Route::get('/start', function () {
+    return view('start');
+}) ->name('start');
 
 Route::get('/category', function () {
     return view ('category');
@@ -13,7 +16,3 @@ Route::get('/category', function () {
 Route::get('/main', function () {
     return view ('main');
 }) ->name('main');
-
-Route::get('/Add', function () {
-    return view ('Add');
-}) ->name('Add');

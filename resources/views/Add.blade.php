@@ -13,7 +13,9 @@
     </style>
 </head>
 <body class="text-gray-900 min-h-screen flex flex-col">
-    <main class="flex-grow flex flex-col items-center justify-center">
+    
+    <main class="flex-grow ">
+        <a href="{{ route('start') }}" class="flex flex-col items-center justify-center">
         <div class="justify-center flex self-start p-4 pt-16">
             <img src="{{ asset('img/happy_logo.png') }}" alt="logo" class="w-2/6">
         </div>
@@ -21,6 +23,7 @@
             <img class="w-8/12" src="https://www.freeiconspng.com/thumbs/fast-food-png/fast-food-png-most-popular-fast-food-snacks-in-your-area-and-most--3.png" alt="food" class="mb-4">
             <p class="text-8xl font-bold text-custom_gray">Click The Screen!</p>
         </div>
+    </a>
     </main>
     <footer class="bg-custom_blue flex gap-6 p-5 shadow-top-lg h-22 items-center">
         <button class="flex items-center gap-2 p-2 bg-custom_gray shadow-lg">
