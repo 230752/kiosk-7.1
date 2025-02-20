@@ -3,15 +3,15 @@
 @section('title', 'start page')
 
 @section('header')
-<div class="flex justify-center  p-4 pt-16">
+<div class="flex justify-center p-4 pt-16">
     <img src="{{asset('img/happy_logo.png')}}" alt="logo" class="w-1/6">
 </div>
 @endsection
 
 @section('content')
-<div class="flex h-full pt-44 gap-24 flex-col">
+<div class="flex justify-self-center h-full w-full pt-44 gap-24 flex-col p-5">
     <h1 class="flex justify-center text-center font-bold text-8xl">Where will you be eating today?</h1>
-    <div class="flex justify-center gap-9 p-2">
+    <div class="flex gap-9">
         <a href="{{ route('category') }}" onclick="" class="text-center rounded-xl shadow-lg bg-custom_orange p-10">
             <img src="{{ asset('img/very_happy.webp') }}" alt="">
             <p class="text-5xl font-bold font-renos text-text_color">Eat in</p>

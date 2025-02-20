@@ -13,3 +13,7 @@ Route::get('/category', function () {
 Route::get('/main', function () {
     return view ('main');
 }) ->name('main');
+
+Route::get('/Add', function () {
+    return view ('Add');
+}) ->name('Add');
