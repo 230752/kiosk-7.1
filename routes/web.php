@@ -16,3 +16,7 @@ Route::get('/category', function () {
 Route::get('/main', function () {
     return view ('main');
 }) ->name('main');
+
+Route::get('/shop', function () {
+    return view ('shop');
+}) ->name('shop');
