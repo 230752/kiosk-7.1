@@ -72,7 +72,7 @@
     </div>
     <div class="flex justify-between border-t-2 border-gray-400 pt-5 pb-8 mt-8">
         <p class="text-5xl font-bold">Total</p>
-        <p class="text-5xl font-bold">12,50</p>
+        <p class="text-5xl font-bold">€12,50</p>
     </div>
 </div>
 @endsection
