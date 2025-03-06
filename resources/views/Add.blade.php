@@ -10,17 +10,32 @@
         main {
             background: linear-gradient(to top left, #ff7520 50%, #053631 50%);
         }
+        .slide {
+            overflow: hidden;
+        }
+        .slide img {
+           
+            transition: transform 1s ease-in-out;
+        }
+        .slide img.slide-out {
+            transform: translateX(-160%);
+        }
+        .slide img.slide-in {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body class="text-gray-900 min-h-screen flex flex-col">
     
-    <main class="flex-grow ">
+    <main class="flex-grow">
         <a href="{{ route('start') }}" class="flex flex-col items-center justify-center">
         <div class="justify-center flex self-start p-4 pt-16">
             <img src="{{ asset('img/happy_logo.png') }}" alt="logo" class="w-2/6">
         </div>
-        <div class="flex w-full gap-12 flex-col mt-36  items-center  flex-grow">
-            <img class="w-8/12" src="https://www.freeiconspng.com/thumbs/fast-food-png/fast-food-png-most-popular-fast-food-snacks-in-your-area-and-most--3.png" alt="food" class="mb-4">
+        <div class=" relative flex w-full gap-12 justify-center flex-col mt-28 items-center flex-grow">
+            <div class="slide flex justify-center">
+                <img id="slide-img" class=" rounded-full z-40 bg-black slide-in w-120 mb-4 flex" src="{{ $products['products'][0]['image_url'] }}" alt="food">
+            </div>
             <p class="text-8xl font-bold text-custom_gray">Click The Screen!</p>
         </div>
     </a>
@@ -40,4 +55,28 @@
         </button>
     </footer>
 </body>
+<script>
+    let currentIndex = 0;
+    const products = @json($products['products']);
+    const slideImg = document.getElementById('slide-img');
+
+    function updateImage() {
+        currentIndex = (currentIndex + 1) % products.length;
+        const newImageUrl = products[currentIndex]['image_url'];
+
+        
+        slideImg.classList.remove('slide-in');
+        slideImg.classList.add('slide-out');
+
+        
+        setTimeout(() => {
+            slideImg.src = newImageUrl;
+            slideImg.classList.remove('slide-out');
+            slideImg.classList.add('slide-in');
+        }, 1000); 
+    }
+
+    
+    setInterval(updateImage, 6000);
+</script>
 </html>

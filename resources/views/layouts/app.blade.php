@@ -8,6 +8,7 @@
         <title>@yield('title', 'Kiosk')</title>
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
+        @stack('scripts')
     </head>
     
     <body class="bg-gray-100 text-gray-900 min-h-s h-screen w-full flex flex-col">

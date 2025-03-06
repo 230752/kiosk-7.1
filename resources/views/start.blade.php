@@ -2,6 +2,10 @@
 
 @section('title', 'Start Page')
 
+@push('scripts')
+ @vite('resources/js/inactivitytest.js')
+@endpush
+
 @section('header')
 <div class="flex justify-center p-4 pt-16">
     <img src="{{ asset('img/happy_logo.png') }}" alt="logo" class="w-1/6">

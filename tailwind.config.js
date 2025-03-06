@@ -19,6 +19,9 @@ export default {
             height: {
                 128: "27.5rem",
             },
+            width: {
+                120: "50rem",
+            },
 
             colors: {
                 custom_gray: "#eeefed",
