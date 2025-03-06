@@ -2,6 +2,10 @@
 
 @section('title', 'shop')
 
+@push('scripts')
+ @vite('resources/js/inactivitytest.js')
+@endpush
+
 @section('header')
 <div>
     <p class=" p-20 text-6xl font-bold">My orders</p>
@@ -28,7 +32,10 @@
             <p class="text-text_color text-2xl font-semibold">Eat in</p>
         </button>
     </div>
-    <div class="pt-10">
+    <div class="pt-10 flex flex-col gap-10">
+        @foreach ( $products['products'] as $product )
+        
+      
         <div class="flex flex-row gap-12">
             <div><img class="w-44" src="https://gluwebdev.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F0216a67a-859e-4730-996f-5d51b31fa395%2F78d4c36c-7319-4aea-ba63-60c53fc92ee4%2FDALLE_2025-01-22_15.59.50_-_A_photorealistic_depiction_of_a_breakfast_wrap_named_Eggcellent_Wrap._It_features_a_whole-grain_wrap_cut_open_to_reveal_fluffy_scrambled_eggs_fresh.webp?table=block&id=18369bb8-092d-80e2-b494-dcb970410f61&spaceId=0216a67a-859e-4730-996f-5d51b31fa395&width=820&userId=&cache=v2" alt="product_img"></div>
             <div class="flex flex-col gap-6">
@@ -60,6 +67,8 @@
 
             </div>
         </div>
+
+        @endforeach
     </div>
     <div class="flex justify-between border-t-2 border-gray-400 pt-5 pb-8 mt-8">
         <p class="text-5xl font-bold">Total</p>

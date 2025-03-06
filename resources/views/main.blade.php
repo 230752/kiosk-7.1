@@ -2,6 +2,10 @@
 
 @section('title', 'main page')
 
+@push('scripts')
+ @vite('resources/js/inactivitytest.js')
+@endpush
+
 
 @section('content')
 <div class="flex flex-row w-full">

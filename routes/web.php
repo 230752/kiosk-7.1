@@ -17,3 +17,5 @@ Route::get('/category', function () {
 Route::get('/main', [ShopController::class, 'main'])->name('main');
 
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
+
+Route::get('/', [ShopController::class, 'add'])->name('add');
