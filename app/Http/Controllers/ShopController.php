@@ -36,6 +36,9 @@ class ShopController extends Controller
         // Pass the products to the Blade template
         return view('add', compact('products'));
     }
+
+
+
 }
 
 
