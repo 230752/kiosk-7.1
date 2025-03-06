@@ -17,13 +17,13 @@
     <h1 class="flex justify-center text-center font-bold text-8xl">Where will you be eating today?</h1>
     <div class="flex gap-9">
         <!-- Eat in preference link -->
-        <a href="{{ route('set_preference', ['preference' => 'eat_in']) }}" class="text-center rounded-xl shadow-lg bg-custom_orange p-10">
+        <a href="{{ route("main") }}" onclick="setPreference('eat_in')" class="text-center rounded-xl shadow-lg bg-custom_orange p-10">
             <img src="{{ asset('img/very_happy.webp') }}" alt="">
             <p class="text-5xl font-bold font-renos text-text_color">Eat in</p>
         </a>
         
         <!-- Take away preference link -->
-        <a href="{{ route('set_preference', ['preference' => 'take_away']) }}" class="text-center rounded-xl shadow-lg bg-custom_orange p-10">
+        <a href="{{ route("main") }}" onclick="setPreference('take_away')" class="text-center rounded-xl shadow-lg bg-custom_orange p-10">
             <img src="{{ asset('img/happy.webp') }}" alt="">
             <p class="text-5xl font-bold font-renos text-text_color">Take away</p>
         </a>
@@ -41,3 +41,29 @@
     </button>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    function setPreference(preference) {
+        // Send AJAX request to update the cookie
+        fetch('{{ route('set_preference') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ preference: preference })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Redirect to the main page after setting the preference
+                window.location.href = '{{ route('main') }}';
+            } else {
+                console.error('Error setting preference:', data);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+@endpush

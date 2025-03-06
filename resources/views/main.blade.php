@@ -32,7 +32,7 @@
                 </svg>
             </div>
         </div>
-        <div class=" w-full align-items-center  justify-center pt-12 pb-12 gap-4" id="productContainer">
+        <div class=" w-full align-items-center overflow-auto h-129  justify-center pt-12 pb-12 gap-4" id="productContainer">
             <div class="  justify-center gap-4 w-full align-items-center flex flex-wrap">
                 @foreach ($products['products'] as $product)
                     <div class="flex shadow-md justify-between flex-col h-128 w-64 rounded-xl bg-custom_green product"
