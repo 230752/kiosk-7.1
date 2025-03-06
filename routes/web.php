@@ -1,9 +1,6 @@
 <?php
-
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CookieController;
-
-Route::get('/set-preference/{preference}', [CookieController::class, 'setPreference'])->name('set_preference');
 
 Route::get('/', function () {
     return view('Add');
@@ -17,10 +14,6 @@ Route::get('/category', function () {
     return view('category');
 })->name('category');
 
-Route::get('/main', function () {
-    return view('main');
-})->name('main');
+Route::get('/main', [ShopController::class, 'main'])->name('main');
 
-Route::get('/shop', function () {
-    return view('shop');
-})->name('shop');
+Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
