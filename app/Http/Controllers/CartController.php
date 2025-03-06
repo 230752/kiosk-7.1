@@ -13,6 +13,14 @@ class CartController extends Controller
     {
         $quantity = 1;
 
+        $response = Http::get('https://u230752.gluwebsite.nl/kiosk-api/');
+        $products = $response->json()['products'];
+
+        $product = collect($products)->firstWhere('product_id', $product_id);
+
+        $price = $product['price'];
+        $name = $product['name']; // Assuming the product has a 'name' field
+
         $cart = json_decode(Cookie::get('cart', '[]'), true);
 
         $productExists = false;
@@ -20,6 +28,8 @@ class CartController extends Controller
         foreach ($cart as &$item) {
             if ($item['product_id'] == $product_id) {
                 $item['quantity'] += $quantity;
+                $item['price'] = $price; // Update the price in case it has changed
+                $item['name'] = $name; // Update the name in case it has changed
                 $productExists = true;
                 break;
             }
@@ -29,14 +39,20 @@ class CartController extends Controller
             $cart[] = [
                 'product_id' => $product_id,
                 'quantity' => $quantity,
+                'price' => $price,
+                'name' => $name,
             ];
         }
 
         Cookie::queue('cart', json_encode($cart), 5);
 
         $totalQuantity = array_sum(array_column($cart, 'quantity'));
+        $totalPrice = array_sum(array_map(function($item) {
+            return $item['quantity'] * $item['price'];
+        }, $cart));
 
         Cookie::queue('totalQuantity', $totalQuantity, 5);
+        Cookie::queue('totalPrice', $totalPrice, 5);
 
         return redirect()->route('main');
     }

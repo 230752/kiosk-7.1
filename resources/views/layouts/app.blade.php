@@ -47,10 +47,12 @@
                 <a href="#" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel order</a>
                 @php
                     $totalQuantity = Cookie::get('totalQuantity', 0);
+                    $totalPrice = Cookie::get('totalPrice');
                 @endphp
                 <a href="{{ $totalQuantity > 0 ? Route('shop') : '#'  }}"
                     class="{{ $totalQuantity > 0 ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-400'}} rounded-md p-6 text-3xl text-gray-400"
-                    style="{{ $totalQuantity > 0 ? '' : 'pointer-events:none' }}">View order ({{ $totalQuantity}})</a>
+                    style="{{ $totalQuantity > 0 ? '' : 'pointer-events:none' }}">View order ({{ $totalQuantity}})
+                    €{{ number_format($totalPrice, 2) }}</a>
             </div>
         </div>
         @show
