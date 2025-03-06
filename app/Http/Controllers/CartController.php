@@ -14,7 +14,7 @@ class CartController extends Controller {
 
         $productExists = false;
 
-        foreach ($cart as &$item) {
+        foreach($cart as &$item) {
             if ($item['product_id'] == $product_id) {
                 $item['quantity'] += $quantity;
                 $productExists = true;
@@ -22,15 +22,15 @@ class CartController extends Controller {
             }
         }
 
-        if (!$productExists) {
+        if(!$productExists) {
             $cart[] = [
                 'product_id' => $product_id,
-                'quantity' => $quantity
+                'quantity' => $quantity,
             ];
         }
 
         Cookie::queue('cart', json_encode($cart), 5);
 
-        return Response()->json(['cart' => $cart]);
+        return response()->json(['cart' => $cart]);
     }
 }
