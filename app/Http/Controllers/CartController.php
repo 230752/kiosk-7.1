@@ -19,7 +19,8 @@ class CartController extends Controller
         $product = collect($products)->firstWhere('product_id', $product_id);
 
         $price = $product['price'];
-        $name = $product['name']; // Assuming the product has a 'name' field
+        $name = $product['name'];
+        $image = $product['image_url'];
 
         $cart = json_decode(Cookie::get('cart', '[]'), true);
 
@@ -28,8 +29,9 @@ class CartController extends Controller
         foreach ($cart as &$item) {
             if ($item['product_id'] == $product_id) {
                 $item['quantity'] += $quantity;
-                $item['price'] = $price; // Update the price in case it has changed
-                $item['name'] = $name; // Update the name in case it has changed
+                $item['price'] = $price;
+                $item['name'] = $name;
+                $item['image_url'] = $image;
                 $productExists = true;
                 break;
             }
@@ -41,6 +43,7 @@ class CartController extends Controller
                 'quantity' => $quantity,
                 'price' => $price,
                 'name' => $name,
+                'image_url' => $image,
             ];
         }
 

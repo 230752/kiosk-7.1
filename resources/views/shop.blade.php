@@ -47,7 +47,7 @@
 
                     <div class="flex flex-row gap-12">
                         <div><img class="w-44"
-                                src="https://gluwebdev.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F0216a67a-859e-4730-996f-5d51b31fa395%2F78d4c36c-7319-4aea-ba63-60c53fc92ee4%2FDALLE_2025-01-22_15.59.50_-_A_photorealistic_depiction_of_a_breakfast_wrap_named_Eggcellent_Wrap._It_features_a_whole-grain_wrap_cut_open_to_reveal_fluffy_scrambled_eggs_fresh.webp?table=block&id=18369bb8-092d-80e2-b494-dcb970410f61&spaceId=0216a67a-859e-4730-996f-5d51b31fa395&width=820&userId=&cache=v2"
+                                src="{{ $product['image_url'] }}"
                                 alt="product_img"></div>
                         <div class="flex flex-col gap-6">
                             <div class="flex flex-row items-center gap-72">
@@ -111,7 +111,9 @@
                 </div>
                 <div id="shop-btn-container" class="pr-4 flex gap-8 items-center">
                     <a href="#" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel order</a>
-                    <a href="#" class="{{ $totalQuantity > 0 ? 'bg-green-500 text-white' : 'bg-gray-200' }} rounded-md p-6 text-3xl text-gray-400">Pay Order ({{ $totalQuantity }}) €{{ number_format($totalPrice, 2) }}</a>
+                    <a href="#"
+                        class="{{ $totalQuantity > 0 ? 'bg-green-500 text-white' : 'bg-gray-200' }} rounded-md p-6 text-3xl text-gray-400">Pay
+                        Order ({{ $totalQuantity }}) €{{ number_format($totalPrice, 2) }}</a>
                 </div>
             </div>
         </div>
