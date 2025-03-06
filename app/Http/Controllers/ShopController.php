@@ -27,4 +27,15 @@ class ShopController extends Controller
         return view('shop', compact('products'));
     }
 
+    public function add()
+    {
+        // Fetch products from the external API
+        $response = Http::get('http://u230752.gluwebsite.nl/kiosk-api');
+        $products = $response->json();
+
+        // Pass the products to the Blade template
+        return view('add', compact('products'));
+    }
 }
+
+
