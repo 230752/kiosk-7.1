@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Cookie;
 
-class CookieController extends Controller
+class PreferenceController extends Controller
 {
     public function setPreference(Request $request, $preference)
     {
