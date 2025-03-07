@@ -45,10 +45,9 @@ class CartController extends Controller
 
         $totalQuantity = array_sum(array_column($cart, 'quantity'));
 
-        $totalPrice = 0;
-        foreach ($cart as $item) {
-            $totalPrice += $item['quantity'] * $item['price'];
-        }
+        $totalPrice = array_sum(array_map(function ($item) {
+            return $item['quantity'] * $item['price'];
+        }, $cart));
 
         Cookie::queue('totalQuantity', $totalQuantity, 5);
         Cookie::queue('totalPrice', $totalPrice, 5);
@@ -72,16 +71,12 @@ class CartController extends Controller
             }
         }
 
-        $cart = array_values($cart);
-
         Cookie::queue('cart', json_encode($cart), 5);
 
         $totalQuantity = array_sum(array_column($cart, 'quantity'));
-
-        $totalPrice = 0;
-        foreach ($cart as $item) {
-            $totalPrice += $item['quantity'] * $item['price'];
-        }
+        $totalPrice = array_sum(array_map(function ($item) {
+            return $item['quantity'] * $item['price'];
+        }, $cart));
 
         Cookie::queue('totalQuantity', $totalQuantity, 5);
         Cookie::queue('totalPrice', $totalPrice, 5);
