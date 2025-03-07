@@ -22,6 +22,9 @@ class PreferenceController extends Controller
     public function deletePreference(Request $request)
     {
         Cookie::queue(Cookie::forget('meal_preference'));
+        Cookie::queue(Cookie::forget('cart'));
+        Cookie::queue(Cookie::forget('totalQuantity'));
+        Cookie::queue(Cookie::forget('totalPrice'));
         return response()->json(['status' => 'success']);
     }
 }

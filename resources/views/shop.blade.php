@@ -178,7 +178,7 @@ $cookie = Cookie::get('meal_preference');
             .catch(error => console.error('Error:', error));
     }
 
-    // Initialize button styles based on the cookie value
+    
     document.addEventListener('DOMContentLoaded', function() {
         const preference = getCookie('meal_preference');
         if (preference) {
@@ -186,7 +186,7 @@ $cookie = Cookie::get('meal_preference');
         }
     });
 
-    // Function to get the value of a cookie by name
+    
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);

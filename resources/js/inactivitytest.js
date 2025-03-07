@@ -1,7 +1,7 @@
 let inactivityTime = function () {
     let time;
-    const redirectTime = 20 * 1000; // 20 seconds
-    const warningTime = 10 * 1000; // 10 seconds
+    const redirectTime = 5 * 60 * 1000; 
+    const warningTime = 10 * 1000;
     let warningTimeout;
 
     window.onload = resetTimer;
