@@ -54,4 +54,27 @@ class CartController extends Controller
 
         return redirect()->route('main');
     }
+
+    public function deleteProduct(Request $request)
+    {
+        $product_id = $request->input('product_id');
+    
+        $cart = json_decode(Cookie::get('cart', '[]'), true);
+    
+        $cart = array_filter($cart, function ($item) use ($product_id) {
+            return $item['product_id'] != $product_id;
+        });
+    
+        Cookie::queue('cart', json_encode($cart), 5);
+    
+        $totalQuantity = array_sum(array_column($cart, 'quantity'));
+        $totalPrice = array_sum(array_map(function ($item) {
+            return $item['quantity'] * $item['price'];
+        }, $cart));
+    
+        Cookie::queue('totalQuantity', $totalQuantity, 5);
+        Cookie::queue('totalPrice', $totalPrice, 5);
+    
+        return redirect()->route('shop');
+    }
 }

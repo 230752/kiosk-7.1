@@ -72,24 +72,17 @@
                             <div class="flex flex-row gap-5">
                                 <p class="text-3xl font-semibold text-gray-700">Quantity: <span
                                         class="text-3xl font-bold text-gray-900">{{ $product['quantity'] }}</span></p>
-                                <button
-                                    class="flex gap-2 border-4 min-w-64 p-1 justify-center border-black flex-row items-center">
-                                    <svg class="w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                        <path fill="#000"
-                                            d="M7.616 20q-.672 0-1.144-.472T6 18.385V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zM17 6H7v12.385q0 .269.173.442t.443.173h8.769q.23 0 .423-.192t.192-.424zM9.808 17h1V8h-1zm3.384 0h1V8h-1zM7 6v13z" />
-                                    </svg>
-                                    <p class="text-text_color font-bold text-3xl ">Delete</p>
-                                </button>
-                                <button
-                                    class="flex gap-2 p-1 border-4 min-w-64 justify-center border-black flex-row items-center">
-                                    <svg class="w-16 rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                        <g fill="#000">
-                                            <path d="M19 5H7V3h14v14h-2zM9 13v-2h2v2h2v2h-2v2H9v-2H7v-2z" />
-                                            <path fill-rule="evenodd" d="M3 7h14v14H3zm2 2h10v10H5z" clip-rule="evenodd" />
-                                        </g>
-                                    </svg>
-                                    <p class="font-bold text-3xl text-text_color">Duplicate</p>
-                                </button>
+                                <form method="POST" action="{{ route('cart.delete') }}">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product['product_id'] }}">
+                                    <button type="submit" class="flex gap-2 border-4 min-w-64 p-1 justify-center border-black flex-row items-center">
+                                        <svg class="w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path fill="#000"
+                                                d="M7.616 20q-.672 0-1.144-.472T6 18.385V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zM17 6H7v12.385q0 .269.173.442t.443.173h8.769q.23 0 .423-.192t.192-.424zM9.808 17h1V8h-1zm3.384 0h1V8h-1zM7 6v13z" />
+                                        </svg>
+                                        <p class="text-text_color font-bold text-3xl ">Delete</p>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
