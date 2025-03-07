@@ -51,13 +51,13 @@
     </footer>
     <script>
         function deletePreference() {
-            fetch('{{ route('delete_preference') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        }
-                    })
+            fetch('/delete_preference', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
