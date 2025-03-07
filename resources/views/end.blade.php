@@ -1,3 +1,7 @@
+@push('scripts')
+@vite('resources/js/inactivitytest.js')
+@endpush
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -14,6 +18,9 @@
         }
     </style>
 </head>
+
+
+
 
 <body class="text-gray-900 min-h-screen flex flex-col">
     <main class="flex-grow">
@@ -48,31 +55,11 @@
             </svg>
             <p class="text-xl">Change language(EN)</p>
         </button>
+        <form action="{{ route('delete_preference') }}" method="POST">
+            @csrf
+            <button type="submit" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Go to start</button>
+        </form>
     </footer>
-    <script>
-        function deletePreference() {
-            fetch('/delete_preference', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        console.log("Deleted meal_preference cookie");
-                        window.location.href = "{{ route('start') }}";
-                    } else {
-                        console.error("Failed to delete meal_preference cookie");
-                    }
-                })
-
-        }
-
-
-        setTimeout(deletePreference, 5000);
-    </script>
 </body>
 
 </html>
