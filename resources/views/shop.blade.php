@@ -80,7 +80,8 @@
                                 <form method="POST" action="{{ route('cart.delete') }}">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product['product_id'] }}">
-                                    <button type="submit" class="flex gap-2 border-4 min-w-64 p-1 justify-center border-black flex-row items-center">
+                                    <button type="submit"
+                                        class="flex gap-2 border-4 min-w-64 p-1 justify-center border-black flex-row items-center">
                                         <svg class="w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                             <path fill="#000"
                                                 d="M7.616 20q-.672 0-1.144-.472T6 18.385V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zM17 6H7v12.385q0 .269.173.442t.443.173h8.769q.23 0 .423-.192t.192-.424zM9.808 17h1V8h-1zm3.384 0h1V8h-1zM7 6v13z" />
@@ -122,7 +123,8 @@
         <div id="shop-btn-container" class="pr-4 flex gap-8 items-center">
             <form action="{{ route('delete_preference') }}" method="POST">
                 @csrf
-                <button type="submit" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel order</button>
+                <button type="submit" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel
+                    order</button>
             </form>
             <a href="{{ route("end") }}"
                 class="{{ $totalQuantity > 0 ? 'bg-green-500 text-white' : 'bg-gray-200' }} rounded-md p-6 text-3xl text-gray-400">Pay
