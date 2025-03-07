@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/add-product/{product_id}', [CartController::class, 'addProduct'])->name('add_product');
 
-Route::post('/cart/delete', [CartController::class, 'deleteProduct'])->name('cart.delete');
 
 Route::get('/', function () {
     return view('Add');

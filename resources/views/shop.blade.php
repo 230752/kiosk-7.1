@@ -26,9 +26,14 @@
 @endpush
 
 @section('header')
-    <div>
-        <p class="p-20 text-6xl font-bold">My orders</p>
-    </div>
+<div class="flex flex-row gap-10 pl-5">
+    <a href="{{ route("main") }}" class="pt-20">
+        <div class="bg-custom_orange rounded-full shadow-xl"><svg xmlns="http://www.w3.org/2000/svg" class="w-16 " viewBox="0 0 24 24">
+                <path fill="black" d="M10.707 8.707a1 1 0 0 0-1.414-1.414l-4 4a1 1 0 0 0 0 1.414l4 4a1 1 0 0 0 1.414-1.414L8.414 13H18a1 1 0 1 0 0-2H8.414z" />
+            </svg></div>
+    </a>
+    <p class=" pt-20 pb-20 text-6xl font-bold">My orders</p>
+</div>
 @endsection
 
 @section('content')
