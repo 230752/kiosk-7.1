@@ -25,6 +25,6 @@ class PreferenceController extends Controller
         Cookie::queue(Cookie::forget('cart'));
         Cookie::queue(Cookie::forget('totalQuantity'));
         Cookie::queue(Cookie::forget('totalPrice'));
-        return response()->json(['status' => 'success']);
+        return redirect()->route('add')->with('status', 'Order cancelled successfully.');
     }
 }
