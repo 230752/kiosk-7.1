@@ -1,109 +1,109 @@
 @php
-use Illuminate\Support\Facades\Cookie;
-$cookie = Cookie::get('meal_preference');
+    use Illuminate\Support\Facades\Cookie;
+    use Illuminate\Support\Facades\Http;
+
+    $response = Http::get('https://u230752.gluwebsite.nl/kiosk-api/');
+    $products = $response->json()['products'];
+
+    $cart = json_decode(Cookie::get('cart', '[]'), true);
+    $totalQuantity = Cookie::get('totalQuantity', 0);
+    $totalPrice = Cookie::get('totalPrice', 0);
+    $cookie = Cookie::get('meal_preference');
+
+    // Map cart items to product details
+    $cartProducts = collect($cart)->map(function ($cartItem) use ($products) {
+        $product = collect($products)->firstWhere('product_id', $cartItem['product_id']);
+        return array_merge($cartItem, $product);
+    });
 @endphp
 
 @extends('layouts.app')
 
-@php
-$totalQuantity = Cookie::get('totalQuantity', 0);
-$totalPrice = Cookie::get('totalPrice');
-$cart = json_decode(Cookie::get('cart', '[]'), true);
-$cookie = Cookie::get('meal_preference');
-
-@endphp
-
-
-
-@section('title', 'shop')
+@section('title', 'Shop')
 
 @push('scripts')
-@vite('resources/js/inactivitytest.js')
+    @vite('resources/js/inactivitytest.js')
 @endpush
 
 @section('header')
-<div class="flex flex-row gap-10 pl-5">
-    <a href="{{ route("main") }}" class="pt-20">
-        <div class="bg-custom_orange rounded-full shadow-xl"><svg xmlns="http://www.w3.org/2000/svg" class="w-16 " viewBox="0 0 24 24">
-                <path fill="black" d="M10.707 8.707a1 1 0 0 0-1.414-1.414l-4 4a1 1 0 0 0 0 1.414l4 4a1 1 0 0 0 1.414-1.414L8.414 13H18a1 1 0 1 0 0-2H8.414z" />
-            </svg></div>
-    </a>
-    <p class=" pt-20 pb-20 text-6xl font-bold">My orders</p>
-</div>
+    <div>
+        <p class="p-20 text-6xl font-bold">My orders</p>
+    </div>
 @endsection
 
 @section('content')
-
-<div class="pl-20 pr-20">
-    <div class="shadow-xl m-auto p-7 rounded-lg">
-        <div class="flex flex-row gap-4">
-            <button id="eat-in-btn" onclick="setPreference('eat_in')" class=" {{ $cookie=='eat_in'? 'bg-custom_orange': 'bg-white' }} flex gap-3 min-w-44 shadow-lg flex-row border-2 border-custom_oranges p-3 items-center">
-                <div id="eat-in-svg" class="flex border-2 {{ $cookie=='eat_in'? 'bg-custom_oranges': 'bg-white border-2 border-custom_oranges' }} s items-center justify-center w-10 h-10  rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-white">
-                        <path fill="currentColor" d="M9 16.2l-3.5-3.5l1.4-1.4l2.1 2.1l5.3-5.3l1.4 1.4z" />
-                    </svg>
-                </div>
-                <p class="text-text_color text-2xl font-semibold">Eat in</p>
-            </button>
-            <button id="take-away-btn" onclick="setPreference('take_away')" class="{{ $cookie=='take_away'? 'bg-custom_orange': 'bg-white' }} flex gap-3 min-w-44 flex-row border-2 shadow-lg border-custom_oranges p-3 items-center">
-                <div id="take-away-svg" class="{{ $cookie=='take_away'? 'bg-custom_oranges': 'bg-white border-2 border-custom_oranges' }} flex border-2 items-center justify-center w-10 h-10  rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-white">
-                        <path fill="currentColor" d="M9 16.2l-3.5-3.5l1.4-1.4l2.1 2.1l5.3-5.3l1.4 1.4z" />
-                    </svg>
-                </div>
-                <p class="text-text_color text-2xl font-semibold">Take away</p>
-            </button>
-        </div>
-        <div class="pt-10 overflow-auto max-h-127 flex flex-col gap-10">
-            @foreach ($cart as $product)
-
-            <div class="flex flex-row gap-12">
-                <div><img class="w-44"
-                        src="{{ $product['image_url'] }}"
-                        alt="product_img"></div>
-                <div class="flex flex-col gap-6">
-                    <div class="flex flex-row items-center gap-72">
-                        <div>
-                            <h2 class="text-5xl font-bold">{{ $product['name'] }}</h2>
-                        </div>
-                        <div>
-                            <p class="text-4xl">€{{ $product['price'] }}</p>
-                        </div>
+    <div class="pl-20 pr-20">
+        <div class="shadow-xl m-auto p-7 rounded-lg">
+            <div class="flex flex-row gap-4">
+                <button id="eat-in-btn" onclick="setPreference('eat_in')"
+                    class="{{ $cookie == 'eat_in' ? 'bg-custom_orange' : 'bg-white' }} flex gap-3 min-w-44 shadow-lg flex-row border-2 border-custom_oranges p-3 items-center">
+                    <div id="eat-in-svg"
+                        class="flex border-2 {{ $cookie == 'eat_in' ? 'bg-custom_oranges' : 'bg-white border-2 border-custom_oranges' }} s items-center justify-center w-10 h-10 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-white">
+                            <path fill="currentColor" d="M9 16.2l-3.5-3.5l1.4-1.4l2.1 2.1l5.3-5.3l1.4 1.4z" />
+                        </svg>
                     </div>
-                    <div class="flex flex-row gap-5">
-                        <button
-                            class="flex gap-2 border-4 min-w-64 p-1 justify-center border-black flex-row items-center">
-                            <svg class="w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path fill="#000"
-                                    d="M7.616 20q-.672 0-1.144-.472T6 18.385V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zM17 6H7v12.385q0 .269.173.442t.443.173h8.769q.23 0 .423-.192t.192-.424zM9.808 17h1V8h-1zm3.384 0h1V8h-1zM7 6v13z" />
-                            </svg>
-                            <p class="text-text_color font-bold text-3xl ">Delete</p>
-                        </button>
-                        <button
-                            class="flex gap-2 p-1 border-4 min-w-64 justify-center border-black flex-row items-center">
-                            <svg class="w-16 rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <g fill="#000">
-                                    <path d="M19 5H7V3h14v14h-2zM9 13v-2h2v2h2v2h-2v2H9v-2H7v-2z" />
-                                    <path fill-rule="evenodd" d="M3 7h14v14H3zm2 2h10v10H5z" clip-rule="evenodd" />
-                                </g>
-                            </svg>
-                            <p class="font-bold text-3xl text-text_color">Duplicate</p>
-                        </button>
+                    <p class="text-text_color text-2xl font-semibold">Eat in</p>
+                </button>
+                <button id="take-away-btn" onclick="setPreference('take_away')"
+                    class="{{ $cookie == 'take_away' ? 'bg-custom_orange' : 'bg-white' }} flex gap-3 min-w-44 flex-row border-2 shadow-lg border-custom_oranges p-3 items-center">
+                    <div id="take-away-svg"
+                        class="{{ $cookie == 'take_away' ? 'bg-custom_oranges' : 'bg-white border-2 border-custom_oranges' }} flex border-2 items-center justify-center w-10 h-10 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-white">
+                            <path fill="currentColor" d="M9 16.2l-3.5-3.5l1.4-1.4l2.1 2.1l5.3-5.3l1.4 1.4z" />
+                        </svg>
                     </div>
-
-                </div>
+                    <p class="text-text_color text-2xl font-semibold">Take away</p>
+                </button>
             </div>
-
-            @endforeach
-        </div>
-        <div class="flex justify-between border-t-2 border-gray-400 pt-5 pb-8 mt-8">
-            <p class="text-5xl font-bold">Total</p>
-            <p class="text-5xl font-bold">€{{ number_format($totalPrice, 2) }}</p>
+            <div class="pt-10 flex flex-col gap-10">
+                @foreach ($cartProducts as $product)
+                    <div class="flex flex-row gap-12">
+                        <div><img class="w-44" src="{{ $product['image_url'] }}" alt="product_img"></div>
+                        <div class="flex flex-col gap-6">
+                            <div class="flex flex-row items-center gap-72">
+                                <div>
+                                    <h2 class="text-5xl font-bold">{{ $product['name'] }}</h2>
+                                </div>
+                                <div>
+                                    <p class="text-4xl">€{{ $product['price'] }}</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-row gap-5">
+                                <p class="text-3xl font-semibold text-gray-700">Quantity: <span
+                                        class="text-3xl font-bold text-gray-900">{{ $product['quantity'] }}</span></p>
+                                <button
+                                    class="flex gap-2 border-4 min-w-64 p-1 justify-center border-black flex-row items-center">
+                                    <svg class="w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path fill="#000"
+                                            d="M7.616 20q-.672 0-1.144-.472T6 18.385V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zM17 6H7v12.385q0 .269.173.442t.443.173h8.769q.23 0 .423-.192t.192-.424zM9.808 17h1V8h-1zm3.384 0h1V8h-1zM7 6v13z" />
+                                    </svg>
+                                    <p class="text-text_color font-bold text-3xl ">Delete</p>
+                                </button>
+                                <button
+                                    class="flex gap-2 p-1 border-4 min-w-64 justify-center border-black flex-row items-center">
+                                    <svg class="w-16 rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <g fill="#000">
+                                            <path d="M19 5H7V3h14v14h-2zM9 13v-2h2v2h2v2h-2v2H9v-2H7v-2z" />
+                                            <path fill-rule="evenodd" d="M3 7h14v14H3zm2 2h10v10H5z" clip-rule="evenodd" />
+                                        </g>
+                                    </svg>
+                                    <p class="font-bold text-3xl text-text_color">Duplicate</p>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="flex justify-between border-t-2 border-gray-400 pt-5 pb-8 mt-8">
+                <p class="text-5xl font-bold">Total</p>
+                <p class="text-5xl font-bold">€{{ number_format($totalPrice, 2) }}</p>
+            </div>
         </div>
     </div>
-    @endsection
+@endsection
 
-    @section('footer')
+@section('footer')
     <div id="footer-content" class=" shadow-top-lg h-32 flex justify-between flex-row gap-8 items-center pl-4">
         <div id="access-btn-container" class="flex flex-row gap-8 h-18">
             <button class=" bg-white flex items-center shadow border border-gray-500 rounded p-4"><svg
@@ -131,76 +131,75 @@ $cookie = Cookie::get('meal_preference');
                 Order ({{ $totalQuantity }}) €{{ number_format($totalPrice, 2) }}</a>
         </div>
     </div>
-</div>
+    </div>
 @endsection
 @push('scripts')
-<script>
-    function setPreference(preference) {
-        fetch('{{ route('
-                set_preference ') }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        preference: preference
-                    })
+    <script>
+        function setPreference(preference) {
+            fetch('{{ route('set_preference') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    preference: preference
                 })
-            .then(response => response.json())
-            .then(data => {
-
-                const takeAwayBtn = document.getElementById('take-away-btn');
-                const eatInBtn = document.getElementById('eat-in-btn');
-                const eatSvg = document.getElementById('eat-in-svg');
-                const takeSvg = document.getElementById('take-away-svg');
-
-                if (preference === 'take_away') {
-                    takeAwayBtn.classList.add('bg-custom_orange');
-                    takeSvg.classList.add('bg-custom_oranges');
-
-                    takeAwayBtn.classList.remove('bg-white');
-                    takeSvg.classList.remove('bg-white');
-
-
-                    eatInBtn.classList.remove('bg-custom_orange');
-                    eatSvg.classList.remove('bg-custom_oranges');
-
-                    eatInBtn.classList.add('bg-white');
-                    eatSvg.classList.add('bg-white');
-
-                } else if (preference === 'eat_in') {
-                    eatInBtn.classList.add('bg-custom_orange');
-                    eatSvg.classList.add('bg-custom_oranges');
-
-                    eatInBtn.classList.remove('bg-white');
-                    eatSvg.classList.remove('bg-white');
-
-
-                    takeAwayBtn.classList.remove('bg-custom_orange');
-                    takeSvg.classList.remove('bg-custom_oranges');
-
-                    takeAwayBtn.classList.add('bg-white');
-                    takeSvg.classList.add('bg-white');
-
-                }
             })
-            .catch(error => console.error('Error:', error));
-    }
+                .then(response => response.json())
+                .then(data => {
+
+                    const takeAwayBtn = document.getElementById('take-away-btn');
+                    const eatInBtn = document.getElementById('eat-in-btn');
+                    const eatSvg = document.getElementById('eat-in-svg');
+                    const takeSvg = document.getElementById('take-away-svg');
+
+                    if (preference === 'take_away') {
+                        takeAwayBtn.classList.add('bg-custom_orange');
+                        takeSvg.classList.add('bg-custom_oranges');
+
+                        takeAwayBtn.classList.remove('bg-white');
+                        takeSvg.classList.remove('bg-white');
 
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const preference = getCookie('meal_preference');
-        if (preference) {
-            setPreference(preference);
+                        eatInBtn.classList.remove('bg-custom_orange');
+                        eatSvg.classList.remove('bg-custom_oranges');
+
+                        eatInBtn.classList.add('bg-white');
+                        eatSvg.classList.add('bg-white');
+
+                    } else if (preference === 'eat_in') {
+                        eatInBtn.classList.add('bg-custom_orange');
+                        eatSvg.classList.add('bg-custom_oranges');
+
+                        eatInBtn.classList.remove('bg-white');
+                        eatSvg.classList.remove('bg-white');
+
+
+                        takeAwayBtn.classList.remove('bg-custom_orange');
+                        takeSvg.classList.remove('bg-custom_oranges');
+
+                        takeAwayBtn.classList.add('bg-white');
+                        takeSvg.classList.add('bg-white');
+
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
-    });
 
 
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-</script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const preference = getCookie('meal_preference');
+            if (preference) {
+                setPreference(preference);
+            }
+        });
+
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+    </script>
 @endpush

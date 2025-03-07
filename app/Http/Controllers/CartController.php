@@ -19,8 +19,6 @@ class CartController extends Controller
         $product = collect($products)->firstWhere('product_id', $product_id);
 
         $price = $product['price'];
-        $name = $product['name'];
-        $image = $product['image_url'];
 
         $cart = json_decode(Cookie::get('cart', '[]'), true);
 
@@ -30,8 +28,6 @@ class CartController extends Controller
             if ($item['product_id'] == $product_id) {
                 $item['quantity'] += $quantity;
                 $item['price'] = $price;
-                $item['name'] = $name;
-                $item['image_url'] = $image;
                 $productExists = true;
                 break;
             }
@@ -42,15 +38,14 @@ class CartController extends Controller
                 'product_id' => $product_id,
                 'quantity' => $quantity,
                 'price' => $price,
-                'name' => $name,
-                'image_url' => $image,
             ];
         }
 
         Cookie::queue('cart', json_encode($cart), 5);
 
         $totalQuantity = array_sum(array_column($cart, 'quantity'));
-        $totalPrice = array_sum(array_map(function($item) {
+
+        $totalPrice = array_sum(array_map(function ($item) {
             return $item['quantity'] * $item['price'];
         }, $cart));
 

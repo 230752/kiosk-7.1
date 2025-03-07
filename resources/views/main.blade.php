@@ -3,7 +3,7 @@
 @section('title', 'main page')
 
 @push('scripts')
- @vite('resources/js/inactivitytest.js')
+    @vite('resources/js/inactivitytest.js')
 @endpush
 
 
@@ -35,32 +35,34 @@
         <div class=" w-full align-items-center overflow-auto h-129  justify-center pt-12 pb-12 gap-4" id="productContainer">
             <div class="  justify-center gap-4 w-full align-items-center flex flex-wrap">
                 @foreach ($products['products'] as $product)
-                    <div class="flex shadow-md justify-between flex-col h-128 w-64 rounded-xl bg-custom_green product"
-                        data-category-id="{{ $product['category_id'] }}">
+                        <div class="flex shadow-md justify-between flex-col h-128 w-64 rounded-xl bg-custom_green product"
+                            data-category-id="{{ $product['category_id'] }}">
+                            <a href="{{ route('add_product', ['product_id' => $product['product_id']]) }}">
+                                <div class="relative  ">
+                                    <img class="rounded-tl-xl rounded-tr-xl" src="{{ $product['image_url'] }}" alt="food">
+                            </a>
+                            <button
+                                onclick="openModal('{{ $product['name'] }}', '{{ $product['description'] }}', '{{ $product['price'] }}', '{{ $product['kcal'] }}', '{{ $product['image_url'] }}')"
+                                id="module_open" class="absolute right-0 bottom-0 shadow-xl m-5 bg-white rounded-full z-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" class="w-16">
+                                    <path fill="#ffb181"
+                                        d="M5.5 6.5a.5.5 0 0 1 1 0V8a.5.5 0 0 1-1 0zM6 3.75a.75.75 0 1 0 0 1.5a.75.75 0 0 0 0-1.5M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6m5-4a4 4 0 1 0 0 8a4 4 0 0 0 0-8" />
+                                </svg>
+                            </button>
+                        </div>
                         <a href="{{ route('add_product', ['product_id' => $product['product_id']]) }}">
-                            <div class="relative  ">
-                                <img class="rounded-tl-xl rounded-tr-xl" src="{{ $product['image_url'] }}" alt="food">
-                                <button
-                                    onclick="openModal('{{ $product['name'] }}', '{{ $product['description'] }}', '{{ $product['price'] }}', '{{ $product['kcal'] }}', '{{ $product['image_url'] }}')"
-                                    id="module_open" class="absolute right-0 bottom-0 shadow-xl m-5 bg-white rounded-full z-10">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" class="w-16">
-                                        <path fill="#ffb181"
-                                            d="M5.5 6.5a.5.5 0 0 1 1 0V8a.5.5 0 0 1-1 0zM6 3.75a.75.75 0 1 0 0 1.5a.75.75 0 0 0 0-1.5M1 6a5 5 0 1 1 10 0A5 5 0 0 1 1 6m5-4a4 4 0 1 0 0 8a4 4 0 0 0 0-8" />
-                                    </svg>
-                                </button>
+                        <div class=" flex flex-col justify-between p-5">
+                            <h1 class=" h-24 font-bold text-3xl">{{ $product['name'] }}</h1>
+                            <div class="flex text-xl justify-between pl-3 pt-3">
+                                <p>€{{ $product['price'] }}</p>
+                                <p>{{ $product['kcal'] }} kcal</p>
                             </div>
-                            <div class=" flex flex-col justify-between p-5">
-                                <h1 class=" h-24 font-bold text-3xl">{{ $product['name'] }}</h1>
-                                <div class="flex text-xl justify-between pl-3 pt-3">
-                                    <p>€{{ $product['price'] }}</p>
-                                    <p>{{ $product['kcal'] }} kcal</p>
-                                </div>
-                            </div>
+                        </div>
                         </a>
                     </div>
                 @endforeach
-            </div>
         </div>
+    </div>
     </div>
 
     <div id="myModal" onclick="closeModal()"
