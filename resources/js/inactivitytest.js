@@ -77,6 +77,7 @@ let inactivityTime = function () {
         hideWarning();
         time = setTimeout(logout, redirectTime);
         warningTimeout = setTimeout(showWarning, redirectTime - warningTime);
+        warningTimeout = setTimeout(showWarning, redirectTime - warningTime);
     }
 
     resetTimer();
