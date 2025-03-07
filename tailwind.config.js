@@ -20,6 +20,7 @@ export default {
                 128: "27.5rem",
                 129: "100rem",
                 127: "80rem",
+                126: "65rem",
             },
             width: {
                 120: "50rem",

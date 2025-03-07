@@ -115,8 +115,11 @@
             </button>
         </div>
         <div id="shop-btn-container" class="pr-4 flex gap-8 items-center">
-            <a href="#" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel order</a>
-            <a href="#"
+            <form action="{{ route('delete_preference') }}" method="POST">
+                @csrf
+                <button type="submit" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel order</button>
+            </form>
+            <a href="{{ route("end") }}"
                 class="{{ $totalQuantity > 0 ? 'bg-green-500 text-white' : 'bg-gray-200' }} rounded-md p-6 text-3xl text-gray-400">Pay
                 Order ({{ $totalQuantity }}) €{{ number_format($totalPrice, 2) }}</a>
         </div>
