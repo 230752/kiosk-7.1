@@ -2,17 +2,17 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>@yield('title', 'Kiosk')</title>
-        @vite('resources/css/app.css')
-        @vite('resources/js/app.js')
-        @stack('scripts')
-    </head>
-    
-    <body class="bg-gray-100 text-gray-900 min-h-s h-screen w-full flex flex-col">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Kiosk')</title>
+    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
+    @stack('scripts')
+</head>
+
+<body class="bg-gray-100 text-gray-900 min-h-s h-screen w-full flex flex-col">
     <header class="">
         @section('header')
         <div id="header-content" class="bg-custom_blue z-50 shadow-xl">
@@ -45,10 +45,13 @@
                 </button>
             </div>
             <div id="shop-btn-container" class="pr-4 flex gap-8 items-center">
-                <a href="#" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel order</a>
+                <form action="{{ route('delete_preference') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel order</button>
+                </form>
                 @php
-                    $totalQuantity = Cookie::get('totalQuantity', 0);
-                    $totalPrice = Cookie::get('totalPrice');
+                $totalQuantity = Cookie::get('totalQuantity', 0);
+                $totalPrice = Cookie::get('totalPrice');
                 @endphp
                 <a href="{{ $totalQuantity > 0 ? Route('shop') : '#'  }}"
                     class="{{ $totalQuantity > 0 ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-400'}} rounded-md p-6 text-3xl text-gray-400"

@@ -10,6 +10,7 @@ $totalQuantity = Cookie::get('totalQuantity', 0);
 $totalPrice = Cookie::get('totalPrice');
 $cart = json_decode(Cookie::get('cart', '[]'), true);
 $cookie = Cookie::get('meal_preference');
+
 @endphp
 
 
@@ -21,8 +22,13 @@ $cookie = Cookie::get('meal_preference');
 @endpush
 
 @section('header')
-<div>
-    <p class=" p-20 text-6xl font-bold">My orders</p>
+<div class="flex flex-row gap-10 pl-5">
+    <a href="{{ route("main") }}" class="pt-20">
+        <div class="bg-custom_orange rounded-full shadow-xl"><svg xmlns="http://www.w3.org/2000/svg" class="w-16 " viewBox="0 0 24 24">
+                <path fill="black" d="M10.707 8.707a1 1 0 0 0-1.414-1.414l-4 4a1 1 0 0 0 0 1.414l4 4a1 1 0 0 0 1.414-1.414L8.414 13H18a1 1 0 1 0 0-2H8.414z" />
+            </svg></div>
+    </a>
+    <p class=" pt-20 pb-20 text-6xl font-bold">My orders</p>
 </div>
 @endsection
 
@@ -48,7 +54,7 @@ $cookie = Cookie::get('meal_preference');
                 <p class="text-text_color text-2xl font-semibold">Take away</p>
             </button>
         </div>
-        <div class="pt-10 flex flex-col gap-10">
+        <div class="pt-10 overflow-auto max-h-127 flex flex-col gap-10">
             @foreach ($cart as $product)
 
             <div class="flex flex-row gap-12">
@@ -116,7 +122,10 @@ $cookie = Cookie::get('meal_preference');
             </button>
         </div>
         <div id="shop-btn-container" class="pr-4 flex gap-8 items-center">
-            <a href="#" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel order</a>
+            <form action="{{ route('delete_preference') }}" method="POST">
+                @csrf
+                <button type="submit" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel order</button>
+            </form>
             <a href="#"
                 class="{{ $totalQuantity > 0 ? 'bg-green-500 text-white' : 'bg-gray-200' }} rounded-md p-6 text-3xl text-gray-400">Pay
                 Order ({{ $totalQuantity }}) €{{ number_format($totalPrice, 2) }}</a>
@@ -127,7 +136,8 @@ $cookie = Cookie::get('meal_preference');
 @push('scripts')
 <script>
     function setPreference(preference) {
-        fetch('{{ route('set_preference') }}', {
+        fetch('{{ route('
+                set_preference ') }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -139,7 +149,7 @@ $cookie = Cookie::get('meal_preference');
                 })
             .then(response => response.json())
             .then(data => {
-               
+
                 const takeAwayBtn = document.getElementById('take-away-btn');
                 const eatInBtn = document.getElementById('eat-in-btn');
                 const eatSvg = document.getElementById('eat-in-svg');
@@ -178,7 +188,7 @@ $cookie = Cookie::get('meal_preference');
             .catch(error => console.error('Error:', error));
     }
 
-    
+
     document.addEventListener('DOMContentLoaded', function() {
         const preference = getCookie('meal_preference');
         if (preference) {
@@ -186,7 +196,7 @@ $cookie = Cookie::get('meal_preference');
         }
     });
 
-    
+
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
