@@ -20,6 +20,10 @@ Route::get('/category', function () {
     return view('category');
 })->name('category');
 
+Route::get('/end', function () {
+    return view('end');
+})->name('end');
+
 Route::get('/main', [ShopController::class, 'main'])->name('main');
 
 Route::get('/shop', [ShopController::class, 'shop'])->name('shop');

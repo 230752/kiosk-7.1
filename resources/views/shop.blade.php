@@ -126,7 +126,7 @@ $cookie = Cookie::get('meal_preference');
                 @csrf
                 <button type="submit" class="border bg-white border-gray-500 rounded text-2xl pl-12 pr-12 p-4">Cancel order</button>
             </form>
-            <a href="#"
+            <a href="{{ route("end") }}"
                 class="{{ $totalQuantity > 0 ? 'bg-green-500 text-white' : 'bg-gray-200' }} rounded-md p-6 text-3xl text-gray-400">Pay
                 Order ({{ $totalQuantity }}) €{{ number_format($totalPrice, 2) }}</a>
         </div>
