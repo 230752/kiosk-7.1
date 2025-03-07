@@ -45,9 +45,10 @@ class CartController extends Controller
 
         $totalQuantity = array_sum(array_column($cart, 'quantity'));
 
-        $totalPrice = array_sum(array_map(function ($item) {
-            return $item['quantity'] * $item['price'];
-        }, $cart));
+        $totalPrice = 0;
+        foreach ($cart as $item) {
+            $totalPrice += $item['quantity'] * $item['price'];
+        }
 
         Cookie::queue('totalQuantity', $totalQuantity, 5);
         Cookie::queue('totalPrice', $totalPrice, 5);
@@ -58,23 +59,33 @@ class CartController extends Controller
     public function deleteProduct(Request $request)
     {
         $product_id = $request->input('product_id');
-    
+
         $cart = json_decode(Cookie::get('cart', '[]'), true);
-    
-        $cart = array_filter($cart, function ($item) use ($product_id) {
-            return $item['product_id'] != $product_id;
-        });
-    
+
+        foreach ($cart as $key => &$item) {
+            if ($item['product_id'] == $product_id) {
+                $item['quantity'] -= 1;
+                if ($item['quantity'] <= 0) {
+                    unset($cart[$key]);
+                }
+                break;
+            }
+        }
+
+        $cart = array_values($cart);
+
         Cookie::queue('cart', json_encode($cart), 5);
-    
+
         $totalQuantity = array_sum(array_column($cart, 'quantity'));
-        $totalPrice = array_sum(array_map(function ($item) {
-            return $item['quantity'] * $item['price'];
-        }, $cart));
-    
+
+        $totalPrice = 0;
+        foreach ($cart as $item) {
+            $totalPrice += $item['quantity'] * $item['price'];
+        }
+
         Cookie::queue('totalQuantity', $totalQuantity, 5);
         Cookie::queue('totalPrice', $totalPrice, 5);
-    
+
         return redirect()->route('shop');
     }
 }
